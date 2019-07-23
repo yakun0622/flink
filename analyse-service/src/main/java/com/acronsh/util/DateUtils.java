@@ -9,6 +9,8 @@
  */
 package com.acronsh.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +37,23 @@ public class DateUtils {
         Integer year = Integer.valueOf(birthYear);
         return year.toString().charAt(2) + "0后";
     }
+
+    public static int getDaysBetweenbyStartAndend(String startTime,String endTime,String format) throws ParseException {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        Date start = dateFormat.parse(startTime);
+        Date end = dateFormat.parse(endTime);
+        Calendar startCalendar = Calendar.getInstance();
+        Calendar endCalendar = Calendar.getInstance();
+        startCalendar.setTime(start);
+        endCalendar.setTime(end);
+        int days = 0;
+        while(startCalendar.before(endCalendar)){
+            startCalendar.add(Calendar.DAY_OF_YEAR,1);
+            days += 1;
+        }
+        return days;
+    }
+
 
     public static void main(String[] args) {
         System.out.println(getYearBaseByAge("50"));
